@@ -30,17 +30,35 @@ public class Basket {
         return totalPrice;
     }
 
+    private int getNumberOfSpecials() {
+
+        int numberOfSpecials = 0;
+
+        for (Product product : products) {
+            if (product != null) {
+                if (product.isSpecial()) {
+                    numberOfSpecials++;
+                }
+            }
+        }
+
+        return numberOfSpecials;
+
+    }
+
     public void printBasket() {
+
         if (products[0] == null) {
             System.out.println("В корзине пусто");
             return;
         }
         for (Product product : products) {
             if (product != null) {
-                System.out.println(product.getName() + ": " + product.getPrice());
+                System.out.println(product);
             }
         }
         System.out.println("Итого: " + this.getTotalPrice());
+        System.out.println("Специальных товаров: " + this.getNumberOfSpecials());
     }
 
     public boolean isProductInBasket(String name) {
