@@ -30,19 +30,19 @@ public class Basket {
         return totalPrice;
     }
 
-    private int numOfSpecials() {
+    private int getNumberOfSpecials() {
 
-        int numOfSpecials = 0;
+        int numberOfSpecials = 0;
 
         for (Product product : products) {
             if (product != null) {
                 if (product.isSpecial()) {
-                    numOfSpecials++;
+                    numberOfSpecials++;
                 }
             }
         }
 
-        return numOfSpecials;
+        return numberOfSpecials;
 
     }
 
@@ -58,7 +58,7 @@ public class Basket {
             }
         }
         System.out.println("Итого: " + this.getTotalPrice());
-        System.out.println("Специальных товаров: " + this.numOfSpecials());
+        System.out.println("Специальных товаров: " + this.getNumberOfSpecials());
     }
 
     public boolean isProductInBasket(String name) {
