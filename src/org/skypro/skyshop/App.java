@@ -1,18 +1,52 @@
 package org.skypro.skyshop;
 
 import org.skypro.skyshop.article.Article;
+import org.skypro.skyshop.basket.Basket;
 import org.skypro.skyshop.product.DiscountedProduct;
 import org.skypro.skyshop.product.FixPriceProduct;
+import org.skypro.skyshop.product.Product;
 import org.skypro.skyshop.product.SimpleProduct;
 import org.skypro.skyshop.service.BestResultNotFound;
 import org.skypro.skyshop.service.SearchEngine;
 import org.skypro.skyshop.service.Searchable;
 
+import java.util.List;
+
 public class App {
 
     public static void main(String[] args) {
 
-        SearchEngine searchEngine = new SearchEngine(15);
+        Basket basket1 = new Basket();
+
+        basket1.addProduct(new SimpleProduct("Помидор", 300));
+        basket1.addProduct(new DiscountedProduct("Помидор", 300, 10));
+        basket1.addProduct(new FixPriceProduct("Груша"));
+        basket1.addProduct(new FixPriceProduct("Мандарин"));
+        basket1.addProduct(new DiscountedProduct("Лук", 100, 20));
+        basket1.addProduct(new DiscountedProduct("Арбуз", 450, 10));
+        basket1.addProduct(new SimpleProduct("Морковь", 300));
+
+        List<Product> deletedProducts = basket1.deleteProduct("Помидор");
+        System.out.println(deletedProducts);
+        basket1.printBasket();
+
+        deletedProducts = basket1.deleteProduct("Репа");
+        if (deletedProducts.isEmpty()) {
+            System.out.println("Список пуст");
+        }
+        basket1.printBasket();
+
+        System.out.println("Итого: " + basket1.getTotalPrice());
+
+        System.out.println("Товар в корзине: " + basket1.isProductInBasket("Яблоко"));
+        System.out.println("Товар в корзине: " + basket1.isProductInBasket("Репа"));
+        System.out.println("Товар в корзине: " + basket1.isProductInBasket("Арбуз"));
+
+        basket1.clearBasket();
+
+        basket1.printBasket();
+
+        SearchEngine searchEngine = new SearchEngine();
 
         try {
             searchEngine.add(new SimpleProduct("Базилик", 0));
@@ -79,7 +113,7 @@ public class App {
 
     }
 
-    public static void printSearchResult(Searchable[] foundItems) {
+    public static void printSearchResult(List<Searchable> foundItems) {
         for (Searchable item : foundItems) {
             if (item != null) {
                 System.out.println(item.getStringRepresentation());
