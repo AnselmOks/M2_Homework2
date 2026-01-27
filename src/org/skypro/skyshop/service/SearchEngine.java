@@ -1,26 +1,21 @@
 package org.skypro.skyshop.service;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public class SearchEngine {
 
-    private Searchable[] items;
+    private List<Searchable> items;
 
-    public SearchEngine(int size) {
-        this.items = new Searchable[size];
+    public SearchEngine() {
+        this.items = new LinkedList<>();
     }
 
-    public Searchable[] search(String searchItem) {
-        int count = 0;
-        Searchable[] foundItems = new Searchable[5];
-
+    public List<Searchable> search(String searchItem) {
+        List<Searchable> foundItems = new LinkedList<>();
         for (Searchable item : items) {
-            if (item != null) {
-                if (item.getSearchItem().contains(searchItem)) {
-                    foundItems[count] = item;
-                    count++;
-                }
-            }
-            if (count == 5) {
-                break;
+            if (item.getSearchItem().contains(searchItem)) {
+                foundItems.add(item);
             }
         }
         return foundItems;
@@ -32,20 +27,18 @@ public class SearchEngine {
         int maxInclude = 0;
 
         for (Searchable item : items) {
-            if (item != null) {
-                String searchItem = item.getSearchItem();
-                int numInclude = 0;
-                int index = 0;
-                int subIndex = searchItem.indexOf(searchString, index);
-                while (subIndex != -1) {
-                    numInclude++;
-                    index = subIndex + searchString.length();
-                    subIndex = searchItem.indexOf(searchString, index);
-                }
-                if (numInclude > maxInclude) {
-                    maxInclude = numInclude;
-                    foundItem = item;
-                }
+            String searchItem = item.getSearchItem();
+            int numInclude = 0;
+            int index = 0;
+            int subIndex = searchItem.indexOf(searchString, index);
+            while (subIndex != -1) {
+                numInclude++;
+                index = subIndex + searchString.length();
+                subIndex = searchItem.indexOf(searchString, index);
+            }
+            if (numInclude > maxInclude) {
+                maxInclude = numInclude;
+                foundItem = item;
             }
         }
 
@@ -57,12 +50,6 @@ public class SearchEngine {
     }
 
     public void add(Searchable item) {
-        for (int i = 0; i < items.length; i++) {
-            if (items[i] == null) {
-                items[i] = item;
-                return;
-            }
-        }
-        System.out.println("Невозможно добавить объект");
+        items.add(item);
     }
 }
