@@ -27,12 +27,12 @@ public class App {
         basket1.addProduct(new DiscountedProduct("Арбуз", 450, 10));
         basket1.addProduct(new SimpleProduct("Морковь", 300));
 
-        List<Product> deletedProducts = basket1.deleteProduct("Помидор");
-        System.out.println(deletedProducts);
+        List<Product> removedProducts = basket1.removeProductByName("Помидор");
+        System.out.println(removedProducts);
         basket1.printBasket();
 
-        deletedProducts = basket1.deleteProduct("Репа");
-        if (deletedProducts.isEmpty()) {
+        removedProducts = basket1.removeProductByName("Репа");
+        if (removedProducts.isEmpty()) {
             System.out.println("Список пуст");
         }
         basket1.printBasket();

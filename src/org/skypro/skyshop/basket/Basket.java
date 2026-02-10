@@ -16,22 +16,21 @@ public class Basket {
         products.computeIfAbsent(product.getName(), k -> new ArrayList<>()).add(product);
     }
 
-    public List<Product> deleteProduct(String name) {
-        List<Product> deletedProducts = new LinkedList<>();
-        if (!products.containsKey(name)) {
-            return deletedProducts;
+    public List<Product> removeProductByName(String name) {
+        List<Product> removedProducts = products.remove(name);
+        if (removedProducts == null) {
+            return new ArrayList<>();
         }
-        List<Product> listOfProducts = products.get(name);
-        deletedProducts.addAll(listOfProducts);
-        products.remove(name);
-        return deletedProducts;
+        return removedProducts;
     }
 
     public int getTotalPrice() {
         int totalPrice = 0;
         for (List<Product> listOfProducts : products.values()) {
             for (Product product : listOfProducts) {
-                totalPrice += product.getPrice();
+                if (product != null) {
+                    totalPrice += product.getPrice();
+                }
             }
         }
         return totalPrice;
@@ -41,7 +40,7 @@ public class Basket {
         int numberOfSpecials = 0;
         for (List<Product> listOfProducts : products.values()) {
             for (Product product : listOfProducts) {
-                if (product.isSpecial()) {
+                if (product != null && product.isSpecial()) {
                     numberOfSpecials++;
                 }
             }
@@ -56,7 +55,7 @@ public class Basket {
         }
         for (List<Product> listOfProducts : products.values()) {
             for (Product product : listOfProducts) {
-                if (product.isSpecial()) {
+                if (product != null) {
                     System.out.println(product);
                 }
             }
