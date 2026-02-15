@@ -1,7 +1,6 @@
 package org.skypro.skyshop.service;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class SearchEngine {
 
@@ -11,11 +10,11 @@ public class SearchEngine {
         this.items = new LinkedList<>();
     }
 
-    public List<Searchable> search(String searchItem) {
-        List<Searchable> foundItems = new LinkedList<>();
+    public Map<String, Searchable> search(String searchItem) {
+        Map<String, Searchable> foundItems = new TreeMap<>();
         for (Searchable item : items) {
             if (item.getSearchItem().contains(searchItem)) {
-                foundItems.add(item);
+                foundItems.put(item.getStringRepresentation(), item);
             }
         }
         return foundItems;

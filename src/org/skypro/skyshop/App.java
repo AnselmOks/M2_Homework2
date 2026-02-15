@@ -11,6 +11,7 @@ import org.skypro.skyshop.service.SearchEngine;
 import org.skypro.skyshop.service.Searchable;
 
 import java.util.List;
+import java.util.Map;
 
 public class App {
 
@@ -26,12 +27,12 @@ public class App {
         basket1.addProduct(new DiscountedProduct("Арбуз", 450, 10));
         basket1.addProduct(new SimpleProduct("Морковь", 300));
 
-        List<Product> deletedProducts = basket1.deleteProduct("Помидор");
-        System.out.println(deletedProducts);
+        List<Product> removedProducts = basket1.removeProductByName("Помидор");
+        System.out.println(removedProducts);
         basket1.printBasket();
 
-        deletedProducts = basket1.deleteProduct("Репа");
-        if (deletedProducts.isEmpty()) {
+        removedProducts = basket1.removeProductByName("Репа");
+        if (removedProducts.isEmpty()) {
             System.out.println("Список пуст");
         }
         basket1.printBasket();
@@ -113,11 +114,9 @@ public class App {
 
     }
 
-    public static void printSearchResult(List<Searchable> foundItems) {
-        for (Searchable item : foundItems) {
-            if (item != null) {
-                System.out.println(item.getStringRepresentation());
-            }
+    public static void printSearchResult(Map<String, Searchable> foundItems) {
+        for (Searchable item : foundItems.values()) {
+            System.out.println(item.getStringRepresentation());
         }
     }
 
