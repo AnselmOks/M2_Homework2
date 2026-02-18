@@ -4,17 +4,17 @@ import java.util.*;
 
 public class SearchEngine {
 
-    private List<Searchable> items;
+    private Set<Searchable> items;
 
     public SearchEngine() {
-        this.items = new LinkedList<>();
+        this.items = new HashSet<>();
     }
 
-    public Map<String, Searchable> search(String searchItem) {
-        Map<String, Searchable> foundItems = new TreeMap<>();
+    public Set<Searchable> search(String searchItem) {
+        Set<Searchable> foundItems = new TreeSet<>(new CustomSearchComparator().reversed());
         for (Searchable item : items) {
             if (item.getSearchItem().contains(searchItem)) {
-                foundItems.put(item.getStringRepresentation(), item);
+                foundItems.add(item);
             }
         }
         return foundItems;

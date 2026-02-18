@@ -11,7 +11,7 @@ import org.skypro.skyshop.service.SearchEngine;
 import org.skypro.skyshop.service.Searchable;
 
 import java.util.List;
-import java.util.Map;
+import java.util.Set;
 
 public class App {
 
@@ -114,8 +114,8 @@ public class App {
 
     }
 
-    public static void printSearchResult(Map<String, Searchable> foundItems) {
-        for (Searchable item : foundItems.values()) {
+    public static void printSearchResult(Set<Searchable> foundItems) {
+        for (Searchable item : foundItems) {
             System.out.println(item.getStringRepresentation());
         }
     }
